@@ -1,0 +1,89 @@
+import java.util.Scanner;
+
+public class MyLinkedList<T> {
+    private MyNode<T> head;
+    private MyNode<T> tail;
+    private int size;
+
+    public MyLinkedList(){
+        head=null;
+        size=0;
+
+    }
+    public void adding(T newItem){
+        MyNode<T> newNode = new MyNode(newItem);
+        if(head == null){
+            head=tail=newNode;
+        } else{
+            tail.next = newNode;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    public T get(int index){
+        MyNode<T> current = head;
+        for(int i=0; i< index; i++){
+            current=current.next;
+        }
+
+        return current.data;
+    }
+
+
+
+public void add(T newItem, int index){
+
+        if(index>size+1 || index<0){
+            System.out.println("not possible");
+        }
+        if(index == size){
+            MyNode newNode = new MyNode(newItem);
+            tail.next = newNode;
+            tail = newNode;
+            size++;
+        }
+        MyNode newNode = new MyNode(newItem);
+        if(index == 0){
+            MyNode prev = head;
+            MyNode last = tail;
+            MyNode current = prev;
+            head = newNode;
+            newNode.next = current;
+            size++;
+            tail = last;
+
+        }
+        else {
+            MyNode prev = head;
+                int quantity =0;
+                while (quantity < index - 1) {
+                    prev = prev.next;
+                    quantity += 1;
+                }
+                MyNode current = prev.next;
+                newNode.next = current;
+                prev.next = newNode;
+
+        }
+}
+    public static void main(String [] args){
+        MyLinkedList<Integer> list = new MyLinkedList<>();
+System.out.println(“Please enter integer:”);
+        Scanner scan = new Scanner(System.in);
+        int num = scan.nextInt();
+System.out.println(“Please enter index:”);
+
+        int ind = scan.nextInt();
+        for(int i=0; i<5; i++){
+            list.adding(i);
+        }
+
+        list.add(num, ind);
+        for(int i=0; i<6; i++){
+            System.out.println(list.get(i)+" ");
+        }
+
+    }
+
+}
