@@ -1,0 +1,57 @@
+public class MyLinkedList<T> {
+    private MyNode<T> head;
+    private MyNode<T> tail;
+    private int size;
+    public MyLinkedList(){
+        head=null;
+        size=0;
+
+    }
+public void adding(T newItem){
+        MyNode<T> newNode = new MyNode(newItem);
+        if(head == null){
+            head=tail=newNode;
+        } else{
+            tail.next = newNode;
+            tail = newNode;
+        }
+        size++;
+    }
+    public T get(int index){
+        MyNode<T> current = head;
+        for(int i=0; i< index; i++){
+            current=current.next;
+        }
+
+        return current.data;
+    }
+    public void reverse() {
+        if (head!=null && head.next != null) {
+      
+            MyNode<T> current = head.next;
+            tail = head;
+            head.next = null;
+            while (current != null) {
+                MyNode<T> next = current.next;
+                current.next = head;
+                head = current;
+                current = next;
+            }
+        }
+    }
+
+    public static void main(String [] args){
+        MyLinkedList<Integer> list = new MyLinkedList<>();
+        for(int i=0; i<5; i++){
+            list.adding(i);
+        }
+
+        list.reverse();
+        for(int i=0; i<5; i++){
+            System.out.println(list.get(i)+" ");
+        }
+
+    }
+
+}
+
