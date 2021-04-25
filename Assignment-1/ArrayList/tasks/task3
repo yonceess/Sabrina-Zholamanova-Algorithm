@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+public class MyArrayList<T>{
+    private Object [] arr1;
+    private int array_length=0;
+    private int power=5;
+    public MyArrayList(){
+        arr1=new Object[power];
+    }
+
+    public void adding(T newItem){
+        if(array_length==power){
+            increase();
+
+        }
+        arr1[array_length++]=newItem;
+    }
+
+    private void increase(){
+        power=(int) (1.5*power);
+        Object [] array2=new Object[power];
+        for (int i=0; i<array_length; i++){
+            array2[i]=arr1[i];
+        }
+        arr1=array2;
+    }
+
+
+    public T remove(int index) {
+
+        arr1[index]=null;
+
+        for (int i = index; i < array_length; i++) {
+            if (i != array_length) {
+                arr1[i] = arr1[i + 1];
+            }
+
+        }
+      
+        return (T) arr1[index];
+
+    }
+    public void show(int index){
+        System.out.println(arr1[index]);
+    }
+
+
+    public static void main(String [] args){
+        MyArrayList<Integer> arr = new MyArrayList<>();
+        System.out.println("Please enter index:");
+        Scanner scan= new Scanner(System.in);
+        int rem_index = scan.nextInt();
+
+
+        for(int i=0 ; i<6; i++){
+
+            arr.adding(i);
+        }
+        arr.show(rem_index);
+
+        arr.remove(rem_index);
+
+    }
+
+}
