@@ -12,12 +12,12 @@ public class MaxHeap<T extends Comparable<T>> {
 
 
 
-    public void insert(T element) {
+    public void insert(T newItem) {
         if (size == maxsize) {
             return;
 
         } else {
-            Heap[size++] = element;
+            Heap[size++] = newItem;
             int current = size-1;
             int parent = (current) / 2;
 
