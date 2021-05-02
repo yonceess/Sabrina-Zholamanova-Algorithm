@@ -60,7 +60,5 @@ public class MaxHeap<T extends Comparable<T>> {
         maxheap.print();
         System.out.println("Minimum:");
         System.out.println(maxheap.getMin());
-
-
-    }
+ }
 }
