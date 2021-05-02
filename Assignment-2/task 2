@@ -12,11 +12,11 @@ public class MaxHeap {
 
 
 
-    public void insert(int element) {
+    public void insert(int newItem) {
         if (size == maxsize) {
 
         } else {
-            Heap[size++] = element;
+            Heap[size++] = newItem;
 
             int current = size-1;
             int parent = current / 2;
