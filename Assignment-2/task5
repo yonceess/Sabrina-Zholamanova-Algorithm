@@ -1,0 +1,58 @@
+public class MaxHeap<T extends Comparable<T>> {
+    private T[] Heap;
+    private int size;
+    private int maxsize;
+
+    public MaxHeap()
+    {
+        size=0;
+        maxsize=10;
+        Heap = (T[]) new Comparable[maxsize];
+    }
+
+
+
+    public void insert(T element) {
+        if (size == maxsize) {
+            return;
+
+        } else {
+            Heap[size++] = element;
+            int current = size-1;
+            int parent = (current) / 2;
+
+            while (Heap[current].compareTo(Heap[parent])>0 && parent>=0) {
+
+                T  temp = Heap[parent];
+                Heap[parent] = Heap[current];
+                Heap[current] = temp;
+
+                current = parent;
+                parent = current / 2;
+
+            }
+        }
+    }
+
+    public void print(){
+        for(int i=0; i<size; i++){
+            System.out.println(Heap[i]+ " ");
+        }
+    }
+
+
+    public static void main(String[] args){
+        MaxHeap<Integer> maxheap = new MaxHeap();
+        maxheap.insert(5);
+        maxheap.insert(1);
+        maxheap.insert(3);
+        maxheap.insert(40);
+        maxheap.insert(60);
+        maxheap.insert(19);
+        maxheap.insert(25);
+        maxheap.print();
+
+
+
+    }
+}
