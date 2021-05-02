@@ -83,8 +83,6 @@ public class MaxHeap<T extends Comparable<T>> {
         maxheap.print();
 
         System.out.println("_______________________________");
-
-
         System.out.println(maxheap.extractMax());
         System.out.println("_______________________________");
         maxheap.print();
