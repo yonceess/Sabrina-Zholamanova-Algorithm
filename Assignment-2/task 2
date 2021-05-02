@@ -1,0 +1,53 @@
+public class MaxHeap {
+    private int[] Heap;
+    private int size;
+    private int maxsize;
+
+    public MaxHeap()
+    {
+        size=0;
+        maxsize=10;
+        Heap = new int[maxsize];
+    }
+
+
+
+    public void insert(int element) {
+        if (size == maxsize) {
+
+        } else {
+            Heap[size++] = element;
+
+            int current = size-1;
+            int parent = current / 2;
+            while (Heap[parent] < Heap[current] && parent >= 0) {
+                int temp = Heap[parent];
+                Heap[parent] = Heap[current];
+                Heap[current] = temp;
+
+                current = parent;
+                parent = current / 2;
+
+            }
+        }
+    }
+    public void print(){
+        for(int i=0; i<size; i++){
+            System.out.println(Heap[i]+ " ");
+        }
+    }
+    public void size(){
+        System.out.println(size);
+    }
+    public static void main(String[] args){
+        MaxHeap maxheap = new MaxHeap();
+        maxheap.insert(5);
+        maxheap.insert(40);
+        maxheap.insert(10);
+        maxheap.print();
+        System.out.println("_______________________");
+        System.out.println("SIZE:");
+        maxheap.size();
+
+    }
+}
