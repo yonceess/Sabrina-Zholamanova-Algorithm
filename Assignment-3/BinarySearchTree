@@ -1,0 +1,127 @@
+public class BinarySearchTree< T extends Comparable<T>> {
+
+        private TNode<T> root;
+
+        private class TNode<T extends Comparable<T>>{
+            private T info_data;
+            private TNode left;
+            private TNode right;
+            public TNode(T info_data){
+                this.info_data=info_data;
+            }
+        }
+
+
+        public void insert(T value){
+            root = insert(root,value);
+        }
+
+
+        public TNode insert(TNode root, T value){
+            if(root==null){
+                root = new TNode(value);
+                return root;
+            }
+            if(value.compareTo((T) root.info_data)<0){
+                root.left = insert(root.left, value);
+            }
+            else {
+                root.right = insert(root.right, value);
+            } return root;
+        }
+
+
+        public void order(){
+            orderTree(root);
+        }
+
+
+        public void orderTree(TNode root){
+            if(root == null){
+                return;
+            }
+            orderTree(root.left);
+            System.out.println(root.info_data + " ");
+            orderTree(root.right);
+        }
+
+
+
+        public TNode searching(T key){
+            return search(root, key);
+        }
+
+
+        public TNode search(TNode root, T key){
+            if(root == null || root.info_data == key){
+                return root;
+            }
+            if(key.compareTo((T)root.info_data) <0){
+                return  search(root.left,key);
+            }
+            else{
+                return search(root.right,key);
+            }
+        }
+
+
+        public void deleting(T key){
+            delete(root,key);
+        }
+
+
+        public TNode delete(TNode root, T key) {
+            if(root == null) {
+                return root;
+            }
+            if(key.compareTo((T)root.info_data) <0) {
+                root.left = delete(root.left, key);
+            } else if(key.compareTo((T)root.info_data) >0) {
+                root.right = delete(root.right, key);
+            } else {
+                if(root.left == null || root.right == null) {
+                    TNode temp = root.left != null ? root.left : root.right;
+                    if(temp == null) {
+                        return null;
+                    } else {
+                        return temp;
+                    }
+                } else {
+                    TNode success = getSuccessor(root);
+                    root.info_data = success.info_data;
+                    root.right = delete(root.right, (T) success.info_data);
+                    return root;
+                }
+            }
+            return root;
+        }
+
+
+        public TNode getSuccessor(TNode node) {
+            if(node == null) {
+                return null;
+            }
+            TNode temp = node.right;
+            while(temp.left != null) {
+                temp = temp.left;
+            }
+            return temp;
+        }
+
+
+        public static void main(String[] args){
+            BinarySearchTree<Integer> BST = new BinarySearchTree<>();
+            BST.insert(3);
+            BST.insert(5);
+            BST.insert(2);
+            BST.order();
+            if(null != BST.searching(5)){
+                System.out.println("found");
+            }
+            else {
+                System.out.println("not found");
+            }
+            BST.deleting(2);
+            BST.order();
+        }
+    }
