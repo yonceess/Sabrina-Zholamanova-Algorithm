@@ -1,0 +1,124 @@
+public class MyHashTable<K,V> {
+
+    private HashNode<K, V>[] chainArray;
+
+    private class HashNode<K, V> {
+        private K key;
+        private V value;
+        private HashNode<K, V> next;
+
+        HashNode(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "{" + key + " " + value + "}";
+        }
+
+        public K GetKey() {
+            return key;
+        }
+
+        private V GetValue() {
+            return value;
+        }
+
+    }
+
+    private int M = 6;
+    private int size;
+
+    MyHashTable() {
+        chainArray = new HashNode[M];
+    }
+
+
+    private int getIndex(K key) {
+        int index = (int) key % M;
+        return index;
+    }
+
+    public void put(K key, V value) {
+        int index = getIndex(key);
+        HashNode<K, V> beginning = new HashNode<>(key, value);
+        if (chainArray[index] == null) {
+            chainArray[index] = beginning;
+        } else {
+            HashNode contin = chainArray[index];
+            for(int i=0; contin.next != null ; i++){
+                contin = contin.next;
+            }
+
+            contin.next = beginning;
+        }
+        size++;
+
+    }
+
+
+    public void print() {
+        for (int i = 0; i < chainArray.length; i++) {
+            System.out.println(chainArray[i] + " ");
+
+        }
+    }
+
+
+
+    public V get(K key){
+        int search_index = getIndex(key);
+        HashNode arr = chainArray[search_index];
+        for(int i=0; arr != null; i++){
+            if(arr.key.equals(key)){
+                return (V) arr.GetValue();
+            }
+            arr=arr.next;
+        }
+        return null;
+    }
+
+    public V delete(K key){
+        int del_index = getIndex(key);
+        HashNode<K,V> array = chainArray[del_index];
+        HashNode<K,V> prev = null;
+        while( array!=null){
+            if(array.key == array.GetKey()){
+                break;
+            }
+            prev=array;
+            array=array.next;
+        }
+        if(array == null){
+            return null;
+        }
+        size--;
+        HashNode<K, V> t = (prev!=null) ? (prev.next=array.next) : (chainArray[del_index]=array.next);
+        return array.value;
+    }
+
+
+    public static void main(String[] args){
+        MyHashTable<Integer, String> table = new MyHashTable<>();
+        table.put(10, "Spain");
+        table.put(2, "Italy");
+        table.put(5, "France");
+        table.put(3, "UK");
+        table.put(1, "Greece");
+
+
+        System.out.println("ALL VALUES:");
+        table.print();
+        System.out.println("______________________________________");
+        System.out.println("FOUNDED VALUE:");
+        System.out.println(table.get(5));
+        System.out.println("______________________________________");
+        System.out.println("DELETED VALUE:");
+        System.out.println(table.delete(3));
+        System.out.println("______________________________________");
+        System.out.println("ALL VALUES AFTER DELETING");
+        table.print();
+
+    }
+}
