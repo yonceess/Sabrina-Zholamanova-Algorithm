@@ -1,0 +1,94 @@
+public class homework {
+
+    private TNode root;
+
+    public class TNode {
+     int val;
+      TNode left;
+     TNode right;
+ TNode() {}
+      TNode(int val) { this.val = val; }
+      TNode(int val, TNode left, TNode right) {
+         this.val = val;
+         this.left = left;
+         this.right = right;
+     }
+  }
+
+
+    public void insert(int value){
+        root = insert(root,value);
+    }
+
+
+    public TNode insert(TNode root, int value){
+        if(root==null){
+            root = new TNode(value);
+            return root;
+        }
+        if(value < root.val){
+            root.left = insert(root.left, value);
+        }
+        else {
+            root.right = insert(root.right, value);
+        } return root;
+    }
+
+
+    public void order(){
+
+        orderTree(root);
+    }
+
+
+    public void orderTree(TNode root){
+        if(root == null){
+            return;
+        }
+        orderTree(root.left);
+        orderTree(root.right);
+    }
+
+    static int max = -1;
+        static int sum = 0;
+        public static void func (TNode root,int line){
+
+        if (root == null) return;
+        if (max == line-1) sum +=root.val;
+        else if (line > max) {
+            max = line;
+            sum = root.val;
+
+        }
+        func(root.left, line + 1);
+        func(root.right, line + 1);
+
+    }
+
+        public int deepestLeavesSum(TNode root) {
+            sum = 0;
+            max = 0;
+            func(root, 0);
+            return sum;
+        }
+
+
+
+    public static void main(String [] args){
+           homework newnode = new homework();
+           newnode.insert(1);
+           newnode.insert(2);
+        newnode.insert(3);
+        newnode.insert(4);
+        newnode.insert(5);
+        newnode.insert(6);
+        newnode.insert(7);
+        newnode.insert(8);
+        newnode.order();
+        System.out.println(newnode.deepestLeavesSum(newnode.root));
+
+
+
+    }
+
+}
