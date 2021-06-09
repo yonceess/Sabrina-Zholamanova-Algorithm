@@ -84,7 +84,7 @@ public class homework {
         newnode.insert(6);
         newnode.insert(7);
         newnode.insert(8);
-        newnode.order();
+    
         System.out.println(newnode.deepestLeavesSum(newnode.root));
 
 
